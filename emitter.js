@@ -15,7 +15,7 @@ class Listener {
     }
 
     notify() {
-        if (this.on && this.several - this.count !== 0) {
+        if (this.on && (this.several - this.count !== 0)) {
             if (this.count % this.through === 0) {
                 this.handler.call(this.context);
             }
