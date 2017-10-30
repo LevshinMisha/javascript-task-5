@@ -20,11 +20,12 @@ class Listener {
     }
 }
 
-module.exports = function () {
+module.exports = () => {
     return {
         listeners: [],
 
-        on: function (event, context, handler, options = {}) {
+        on: function (event, context, handler) {
+            let options = arguments.length === 3 ? {} : arguments[3];
             this.listeners.push(new Listener(event, context, handler, options));
 
             return this;
