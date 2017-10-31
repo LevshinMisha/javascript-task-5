@@ -25,8 +25,7 @@ module.exports = () => {
         listeners: [],
 
         on: function (event, context, handler) {
-            let options = arguments.length === 3 ? {} : arguments[3];
-            this.listeners.push(new Listener(event, context, handler, options));
+            this.listeners.push(new Listener(event, context, handler, {}));
 
             return this;
         },
@@ -49,11 +48,17 @@ module.exports = () => {
         },
 
         several: function (event, context, handler, times) {
-            return this.on(event, context, handler, { several: times > 0 ? times : -1 });
+            this.listeners.push(new Listener(event, context, handler,
+                { several: times > 0 ? times : -1 }));
+
+            return this;
         },
 
         through: function (event, context, handler, frequency) {
-            return this.on(event, context, handler, { through: frequency > 0 ? frequency : 1 });
+            this.listeners.push(new Listener(event, context, handler,
+                { through: frequency > 0 ? frequency : 1 }));
+
+            return this;
         }
     };
 };
